@@ -13,8 +13,8 @@ if not API_KEY:
 
 client = genai.Client(api_key=API_KEY)
 
-# Use gemini-2.5-pro for best reasoning and search capability
-MODEL = "gemini-2.5-pro"
+# Use gemini-3.1-pro for best reasoning and search capability
+MODEL = "gemini-3.1-pro"
 
 # File paths (relative to repo root)
 TRACKER_FILE = "scripts/verse_tracker.json"
