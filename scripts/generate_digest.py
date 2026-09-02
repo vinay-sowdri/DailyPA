@@ -1,5 +1,6 @@
 import os
 import json
+import traceback
 import markdown
 from datetime import datetime
 import pytz
@@ -46,6 +47,7 @@ def get_gita_prompt():
             verse = data.get("verse", 1)
     except Exception as e:
         print(f"Error reading tracker: {e}")
+        traceback.print_exc()
         chapter, verse = 1, 1
 
     prompt = f"""
@@ -80,6 +82,7 @@ def update_tracker(chapter, verse):
             json.dump({"chapter": next_chapter, "verse": next_verse}, f, indent=2)
     except Exception as e:
         print(f"Error saving tracker: {e}")
+        traceback.print_exc()
 
 def call_gemini(prompt, use_search=False):
     print(f"Calling Gemini... (Search Grounding: {use_search})")
@@ -100,7 +103,8 @@ def call_gemini(prompt, use_search=False):
         )
         return response.text
     except Exception as e:
-        print(f"API Error: {e}")
+        print(f"API Error ({type(e).__name__}): {e}")
+        traceback.print_exc()
         return f"**Error generating content:** {str(e)}"
 
 # --- Main Logic ---
